@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -5,15 +6,17 @@
     <title>주소 검색 및 저장</title>
     <link rel="stylesheet" href="style.css">
 </head>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+</head>
 <body>
     <div class="container">
         <h1>주소 검색 및 저장</h1>
         <input type="text" id="addressInput" placeholder="주소를 입력하세요">
         <button id="searchBtn">검색</button>
         <button id="saveBtn">저장</button>
-        <ul id="addressList"></ul>
+        <div id="addressConfirm" class="address-confirm"></div>
+        <ul id="addressList"></ul> 
     </div>
     <script src="script.js"></script>
 </body>
 </html>
-

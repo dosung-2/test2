@@ -35,6 +35,17 @@ button {
 button:hover {
     background: #0056b3;
 }
+#addressConfirm {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 8px;
+    background: #f1f8e9;
+    border: 1px solid #b2dfdb;
+    border-radius: 4px;
+    color: #333;
+    min-height: 20px;
+    font-size: 1em;
+}
 #addressList {
     margin-top: 16px;
     padding: 0;

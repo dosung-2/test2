@@ -1,59 +1,31 @@
+// 주소 검색 및 저장 기능의 기본 구조
+const addressInput = document.getElementById('addressInput');
+const searchBtn = document.getElementById('searchBtn');
+const saveBtn = document.getElementById('saveBtn');
+const addressList = document.getElementById('addressList');
 
-document.getElementById('send-btn').addEventListener('click', sendMessage);
-document.getElementById('user-input').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage();
+// 임시 저장용 배열
+let savedAddresses = [];
+
+searchBtn.addEventListener('click', () => {
+    // 실제 주소 검색 기능은 추후 구현
+    alert('주소 검색 기능은 추후 구현됩니다.');
+});
+
+saveBtn.addEventListener('click', () => {
+    const address = addressInput.value.trim();
+    if (address) {
+        savedAddresses.push(address);
+        renderAddressList();
+        addressInput.value = '';
     }
 });
 
-async function sendMessage() {
-    const input = document.getElementById('user-input');
-    const message = input.value.trim();
-    if (!message) return;
-    appendMessage('user', message);
-    input.value = '';
-    appendMessage('bot', '...'); // 로딩 표시
-    const botMsgDiv = document.querySelector('.bot-msg:last-child');
-    try {
-        const response = await getBotResponse(message);
-        botMsgDiv.innerText = response;
-    } catch (e) {
-        botMsgDiv.innerText = 'API 오류가 발생했습니다.';
-    }
-}
-
-function appendMessage(sender, text) {
-    const chatBox = document.getElementById('chat-box');
-    const msgDiv = document.createElement('div');
-    msgDiv.className = sender === 'user' ? 'user-msg' : 'bot-msg';
-    msgDiv.innerText = text;
-    chatBox.appendChild(msgDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-// OpenAI ChatGPT API 호출 (get-4o-mini)
-async function getBotResponse(userInpgitut) {
-    const apiKey = 'KEY<- 반드시 본인 키로 교체.'
-    const endpoint = 'https://api.openai.com/v1/chat/completions';
-    const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
-    };
-    const body = {
-        model: 'gpt-4o-mini',
-        messages: [
-            { role: 'system', content: 'You are a helpful assistant.' },
-            { role: 'user', content: userInput }
-        ],
-        max_tokens: 1000
-    };
-    const res = await fetch(endpoint, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(body)
+function renderAddressList() {
+    addressList.innerHTML = '';
+    savedAddresses.forEach(addr => {
+        const li = document.createElement('li');
+        li.textContent = addr;
+        addressList.appendChild(li);
     });
-    if (!res.ok) throw new Error('API Error');
-    const data = await res.json();
-    return data.choices[0].message.content.trim();
 }
